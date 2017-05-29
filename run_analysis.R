@@ -18,6 +18,7 @@ YtrainURL <- "/Users/michaelgarcia/CloudStation/data_toolbox/GettingCleaningData
 SubTest <- "/Users/michaelgarcia/CloudStation/data_toolbox/GettingCleaningData/UCI HAR Dataset/train/subject_test.txt"
 SubTrain <- "/Users/michaelgarcia/CloudStation/data_toolbox/GettingCleaningData/UCI HAR Dataset/train/subject_train.txt"  
 featuresURL <- "/Users/michaelgarcia/CloudStation/data_toolbox/GettingCleaningData/UCI HAR Dataset/features.txt"  
+activityURL <- "/Users/michaelgarcia/CloudStation/data_toolbox/GettingCleaningData/UCI HAR Dataset/activity_labels.txt"  
 run_analysis(Xtest, Xtrain, Ytest, Ytrain ){
   
     ### 1. merged data and training sets create one set ##
@@ -26,11 +27,13 @@ run_analysis(Xtest, Xtrain, Ytest, Ytrain ){
       Ytest <- read.table(YtestURL)
       Ytrain <- read.table(YtrainURL)
       features <- read.table(featuresURL)
+      activityLabels <- read.table(activityURL)
+      
      # replaced cbind() with 
        #TrainSets <- cbind(cbind(Xtrain,Ytrain),SubTrain)
        #TestSets <- cbind(cbind(Xtest,Ytest),SubTest)
       XSets <- rbind(Xtrain,Xtest)
-      YSets <- rbind(Ytrain,Ytest)
+      YSets <- rbind(Ytrain,Ytest)[, 1]
     ### 2. Extracts only the measurements on the mean and standard deviation for each measurement.###
       #need to rename to get measurements 
        XSetsNames <- features
@@ -40,6 +43,14 @@ run_analysis(Xtest, Xtrain, Ytest, Ytrain ){
       # now create variable for only mean and std dev. 
         mean_stdSet <- XSets[, mean_std]
     ### 3. Uses descriptive activity names to name the activities in the data set ###
+        #YSetsNames <- activityLabels
+        #list the elements in vector 2 for the names of activities
+        activityrelabel <- as.character(activityLabels[,2])
+        activity <- activityrelabel[YSets]
+    ### 4. Appropriately labels the data set with descriptive variable names.
+        
+    ### 5. From the data set in step 4, creates a second, independent tidy data set with the average
+    ###    of each variable for each activity and each subject.
         
         
   }
