@@ -43,6 +43,15 @@ run_analysis <- function()
               Ytrain <- replace(Ytrain,Ytrain == 5,"STANDING")
               Ytrain <- replace(Ytrain,Ytrain == 6,"LAYING")
              
+              Ytest <- replace(Ytest,Ytest[1] == 1,"WALKING")
+              Ytest <- replace(Ytest,Ytest == 2,"WALKING_UPSTAIRS")
+              Ytest <- replace(Ytest,Ytest == 3,"WALKING_DOWNSTAIRS")
+              Ytest <- replace(Ytest,Ytest == 4,"SITTING")
+              Ytest <- replace(Ytest,Ytest == 5,"STANDING")
+              Ytest <- replace(Ytest,Ytest == 6,"LAYING")
+              
+              
+              
              names(Ytrain) <- "Activity"
              names(Ytest) <- "Activity"
              names(subTrain) <- "Subject"
